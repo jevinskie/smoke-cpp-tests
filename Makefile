@@ -1,6 +1,6 @@
-CC1=cl -nologo -Zi -c -Fo
-CC2=cl -nologo -Zi -c -Fo
-LINK=link -nologo -debug -incremental:no -out:
+CC1=cl -nologo -c -Fo
+CC2=cl -nologo -c -Fo
+LINK=link -nologo libcmt.lib -debug -incremental:no -out:
 
 RUN_TEST_TARGETS=$(patsubst %.cpp,run_%_1_test,$(wildcard *.cpp)) \
                  $(patsubst %.cpp,run_%_2_test,$(wildcard *.cpp))
@@ -9,12 +9,13 @@ all: run_all_tests
 .PHONY: all
 
 clean:
-	rm -rf *.pdb *.ilk *.exe *.obj *.o dev_null
+	rm -f *.pdb *.ilk *.exe *.obj *.o dev_null
 .PHONY: clean
 
 run_%_test: %_test.exe
 	### Running $< ###
 	@ ./$< || ! echo "$< - FAIL"
+	### $< - OK ###
 .PHONY: run_%_test
 
 %_test.exe: %_1.obj %_2.obj
