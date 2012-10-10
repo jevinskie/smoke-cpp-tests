@@ -9,7 +9,7 @@ all: run_all_tests
 .PHONY: all
 
 clean:
-	rm -f *.pdb *.ilk *.exe *.obj *.o dev_null
+	rm -f *.pdb *.ilk *.exe *.obj *.obj-* *.o *.o-* dev_null
 .PHONY: clean
 
 run_%_test: %_test.exe
