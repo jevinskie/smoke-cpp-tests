@@ -14,25 +14,24 @@ class Base2 {
 
 class Child: public Base1, public Base2 {
  public:
-  virtual void foo();  // TODO: call it?
-
-  void fill();
+  virtual void foo();
 
   int c;
 };
 
 #ifdef CONFIG_1
-void Child::fill() {
+void Child::foo() {
   a = 1;
   b = 2;
   c = 3;
 }
 
 #else
+
 int main() {
   Child obj;
   obj.a = obj.b = obj.c = 42;
-  obj.fill();
+  obj.foo();
 
   if (obj.a != 1)
     return 1;

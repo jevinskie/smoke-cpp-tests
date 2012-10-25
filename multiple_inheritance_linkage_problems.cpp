@@ -20,10 +20,6 @@ class Child: public Base1, public Base2 {
 };
 
 #ifdef CONFIG_1
-// When this is compiled with CL, link fails to find the vftables when linking
-// with Clang-generated other half of the code.
-// FIXME: Probably Clang should emit the vftables even then they are not used?
-
 void Base1::foo() { }
 
 void Base2::bar() { }
