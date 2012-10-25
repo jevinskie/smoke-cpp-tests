@@ -1,5 +1,7 @@
 CC1=cl -nologo -c -Fo
 CC2=cl -nologo -c -Fo
+OBJ1=obj
+OBJ2=obj
 LINK=link -nologo libcmt.lib -debug -incremental:no -out:
 
 RUN_TEST_TARGETS=$(patsubst %.cpp,run_%_1_test,$(wildcard *.cpp)) \
@@ -18,19 +20,22 @@ run_%_test: %_test.exe
 	### $< - OK ###
 .PHONY: run_%_test
 
-%_test.exe: %_1.obj %_2.obj
+%_1_test.exe: %_1_1.$(OBJ1) %_1_2.$(OBJ2)
 	$(LINK)$@ $^
 
-%_1_1.obj: %.cpp
+%_2_test.exe: %_2_1.$(OBJ2) %_2_2.$(OBJ1)
+	$(LINK)$@ $^
+
+%_1_1.$(OBJ1): %.cpp
 	$(CC1)$@ -DCONFIG_1 $^ >dev_null
 
-%_1_2.obj: %.cpp
+%_1_2.$(OBJ2): %.cpp
 	$(CC2)$@ $^ >dev_null
 
-%_2_1.obj: %.cpp
+%_2_1.$(OBJ2): %.cpp
 	$(CC1)$@ $^ >dev_null
 
-%_2_2.obj: %.cpp
+%_2_2.$(OBJ1): %.cpp
 	$(CC2)$@ -DCONFIG_1 $^ >dev_null
 
 
