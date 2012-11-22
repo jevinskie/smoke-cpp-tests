@@ -10,8 +10,7 @@ void __stdcall foo() {
 int cnt = 10;
 
 int main() {
-  void (__stdcall *ptr)() = 0;
-  ptr = foo;
+  void (__stdcall *ptr)() = foo;
   (*ptr)();
   return (cnt == 42) ? 0 : 1;
 }
