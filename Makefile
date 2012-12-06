@@ -1,8 +1,9 @@
 CC1=cl -nologo -c -Fo
-CC2=cl -nologo -c -Fo
+CC2=$(CC1)
 OBJ1=obj
 OBJ2=obj
-LINK=link -nologo libcmt.lib -debug -incremental:no -out:
+LDFLAGS=
+LINK=link $(LDFLAGS) -nologo libcmt.lib libcpmt.lib -debug -incremental:no -out:
 
 RUN_TEST_TARGETS=$(patsubst %.cpp,run_%_1_test,$(wildcard *.cpp)) \
                  $(patsubst %.cpp,run_%_2_test,$(wildcard *.cpp))
@@ -16,8 +17,8 @@ clean:
 
 run_%_test: %_test.exe
 	### Running $< ###
-	@ ./$< || ! echo "$< - FAIL"
-	### $< - OK ###
+	@ ./$< || ! echo "### FAIL: $< ###############"
+	#     OK: $<
 .PHONY: run_%_test
 
 %_1_test.exe: %_1_1.$(OBJ1) %_1_2.$(OBJ2)
