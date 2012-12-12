@@ -21,9 +21,7 @@ void operator delete (void *ptr) {
 int main() {
   Class *obj = new Class;
   obj->~Class();
-  if (dtor_calls != 1)
-    return 1;
-  if (operator_delete_calls != 0)
-    return 2;
+  CHECK(dtor_calls == 1);
+  CHECK(operator_delete_calls == 0);
 }
 #endif

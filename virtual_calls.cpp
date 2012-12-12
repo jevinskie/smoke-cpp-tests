@@ -1,3 +1,5 @@
+#include "common.h"
+
 class Base {
  public:
   virtual ~Base();
@@ -40,13 +42,9 @@ void run();
 int main() {
   run();
 
-  if (dtor_calls != 1)
-    return 1;
-  if (a_calls != 0)
-    return 2;
-  if (b_calls != 1)
-    return 3;
-  if (c_calls != 0)
-    return 4;
+  CHECK(dtor_calls == 1);
+  CHECK(a_calls == 0);
+  CHECK(b_calls == 1);
+  CHECK(c_calls == 0);
 }
 #endif

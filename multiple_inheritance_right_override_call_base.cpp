@@ -1,3 +1,5 @@
+#include "common.h"
+
 class Base1 {
  public:
   virtual void foo() {}
@@ -22,20 +24,11 @@ class Child: public Base1, public Base2 {
 };
 
 #ifdef CONFIG_1
-extern "C" void _exit(int);
-
-#define CHECK2(cond,exitcode) \
-    do { \
-      if (!(cond)) { \
-        _exit(exitcode); \
-      } \
-    } while (0)
-
 void Child::bar(void *T, int A, int B, int C) {
-  CHECK2(A == 1, 1);
-  CHECK2(B == 2, 2);
-  CHECK2(C == 3, 3);
-  CHECK2(T == this, 4);
+  CHECK(A == 1);
+  CHECK(B == 2);
+  CHECK(C == 3);
+  CHECK(T == this);
 }
 
 #else

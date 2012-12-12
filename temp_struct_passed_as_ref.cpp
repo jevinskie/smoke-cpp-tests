@@ -1,3 +1,5 @@
+#include "common.h"
+
 // This has been failing in Clang, see http://llvm.org/PR13761
 
 struct S {
@@ -8,15 +10,12 @@ struct S {
 #ifdef CONFIG_1
   S::S() : a(1), b(2) {}
 #else
-  int foo(const struct S &s) {
-    if (s.a != 1)
-      return 1;
-    if (s.b != 2)
-      return 2;
-    return 0;
+  void foo(const struct S &s) {
+    CHECK(s.a == 1);
+    CHECK(s.b == 2);
   }
 
   int main() {
-    return foo(S());
+    foo(S());
   }
 #endif

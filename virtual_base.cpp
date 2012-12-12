@@ -1,8 +1,4 @@
-extern "C" void exit(int);
-
-inline void oops() {
-  exit(1);
-}
+#include "common.h"
 
 class Base {
  public:
@@ -10,7 +6,7 @@ class Base {
   ~Base() {}
 
   void foo(void *real_this) {
-    if (real_this != this) oops();
+    CHECK(real_this == this);
   }
 
   int base_field;
@@ -20,7 +16,7 @@ class Child: public virtual Base {
  public:
   Child() {}
   void bar(void *real_c, void *real_b) {
-    if (real_c != this) oops();
+    CHECK(real_c == this);
     foo(real_b);
   }
 

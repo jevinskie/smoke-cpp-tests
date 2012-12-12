@@ -1,3 +1,5 @@
+#include "common.h"
+
 class Base1 {
  public:
   virtual void foo() {}
@@ -33,11 +35,8 @@ int main() {
   obj.a = obj.b = obj.c = 42;
   obj.foo();
 
-  if (obj.a != 1)
-    return 1;
-  if (obj.b != 2)
-    return 2;
-  if (obj.c != 3)
-    return 3;
+  CHECK(obj.a == 1);
+  CHECK(obj.b == 2);
+  CHECK(obj.c == 3);
 }
 #endif
