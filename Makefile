@@ -1,7 +1,7 @@
 CC1=cl -nologo -c -Fo
 CC2=$(CC1)
 OBJ1=obj
-OBJ2=obj
+OBJ2=$(OBJ1)
 LDFLAGS=
 LINK=link $(LDFLAGS) -nologo libcmt.lib libcpmt.lib -debug -incremental:no -out:
 
