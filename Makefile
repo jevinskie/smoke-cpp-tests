@@ -5,8 +5,15 @@ OBJ2=$(OBJ1)
 LDFLAGS=
 LINK=link $(LDFLAGS) -nologo libcmt.lib libcpmt.lib -debug -incremental:no -out:
 
-RUN_TEST_TARGETS=$(patsubst %.cpp,run_%_1_test,$(wildcard *.cpp)) \
+ALL_TEST_TARGETS=$(patsubst %.cpp,run_%_1_test,$(wildcard *.cpp)) \
                  $(patsubst %.cpp,run_%_2_test,$(wildcard *.cpp))
+
+ifeq ($(TEST_FILTER), )
+  RUN_TEST_TARGETS=$(ALL_TEST_TARGETS)
+else
+  SELECT = $(foreach v,$(2),$(if $(findstring $(1),$(v)),$(v),))
+  RUN_TEST_TARGETS=$(call SELECT,$(TEST_FILTER), $(ALL_TEST_TARGETS))
+endif
 
 all: run_all_tests
 .PHONY: all
