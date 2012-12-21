@@ -39,8 +39,8 @@ void run();
 
 int main() {
   run();
-  CHECK(base_dtor_calls == 1);
-  CHECK(derived_dtor_calls == 1);
-  CHECK(operator_delete_calls == 1);
+  CHECK_EQ(1, base_dtor_calls);
+  CHECK_EQ(1, derived_dtor_calls);
+  CHECK_EQ(1, operator_delete_calls);
 }
 #endif
