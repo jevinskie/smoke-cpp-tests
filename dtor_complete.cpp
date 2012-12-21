@@ -12,16 +12,15 @@ Class::~Class() {
 }
 
 #else
-int dtor_calls, operator_delete_calls;
+int dtor_calls;
 
 void operator delete (void *ptr) {
-  operator_delete_calls++;
+  CHECK(!"Shouldn't be called");
 }
 
 int main() {
   Class *obj = new Class;
   obj->~Class();
-  CHECK(dtor_calls == 1);
-  CHECK(operator_delete_calls == 0);
+  CHECK_EQ(1, dtor_calls);
 }
 #endif

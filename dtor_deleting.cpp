@@ -1,7 +1,5 @@
 #include "common.h"
 
-#include "common.h"
-
 extern int dtor_calls, operator_delete_calls;
 
 struct Class {
@@ -23,7 +21,7 @@ void operator delete (void *ptr) {
 int main() {
   Class *obj = new Class;
   delete obj;
-  CHECK(dtor_calls == 1);
-  CHECK(operator_delete_calls == 1);
+  CHECK_EQ(1, dtor_calls);
+  CHECK_EQ(1, operator_delete_calls);
 }
 #endif
