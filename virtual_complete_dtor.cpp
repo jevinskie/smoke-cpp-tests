@@ -4,13 +4,15 @@ extern int base_dtor_calls, derived_dtor_calls;
 
 class Base {
  public:
-  virtual ~Base() {
-    base_dtor_calls++;
-  }
+  virtual ~Base();
 };
 
 #ifdef CONFIG_1
 void call_complete_dtor(Base* obj);
+
+Base::~Base() {
+  base_dtor_calls++;
+}
 
 class Derived: public Base {
  public:
@@ -24,11 +26,10 @@ void run() {
 }
 
 #else
-int operator_delete_calls,
-    base_dtor_calls, derived_dtor_calls;
+int base_dtor_calls, derived_dtor_calls;
 
 void operator delete (void* ptr) {
-  operator_delete_calls++;
+  CHECK(!"Shouldn't be called");
 }
 
 void call_complete_dtor(Base* obj) {
@@ -39,8 +40,7 @@ void run();
 
 int main() {
   run();
-  CHECK(base_dtor_calls == 1);
-  CHECK(derived_dtor_calls == 1);
-  CHECK(operator_delete_calls == 0);
+  CHECK_EQ(1, base_dtor_calls);
+  CHECK_EQ(1, derived_dtor_calls);
 }
 #endif
