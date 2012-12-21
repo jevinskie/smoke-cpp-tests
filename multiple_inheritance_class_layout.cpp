@@ -34,8 +34,8 @@ int main() {
   obj.a = obj.b = obj.c = 42;
   obj.fill();
 
-  CHECK(obj.a == 1);
-  CHECK(obj.b == 2);
-  CHECK(obj.c == 3);
+  CHECK_EQ(1, obj.a);
+  CHECK_EQ(2, obj.b);
+  CHECK_EQ(3, obj.c);
 }
 #endif

@@ -23,6 +23,6 @@ int checker;
 int main() {
   Class c;
   c.method();  // And calls it with the other.
-  CHECK(checker == 1);
+  CHECK_EQ(1, checker);
 }
 #endif

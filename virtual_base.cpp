@@ -6,7 +6,7 @@ class Base {
   ~Base() {}
 
   void foo(void *real_this) {
-    CHECK(real_this == this);
+    CHECK_EQ(real_this, this);
   }
 
   int base_field;
@@ -16,7 +16,7 @@ class Child: public virtual Base {
  public:
   Child() {}
   void bar(void *real_c, void *real_b) {
-    CHECK(real_c == this);
+    CHECK_EQ(real_c, this);
     foo(real_b);
   }
 

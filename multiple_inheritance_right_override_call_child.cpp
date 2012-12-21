@@ -26,18 +26,11 @@ class Child: public Base1, public Base2 {
 #ifdef CONFIG_1
 extern "C" void _exit(int);
 
-#define CHECK2(cond,exitcode) \
-    do { \
-      if (!(cond)) { \
-        _exit(exitcode); \
-      } \
-    } while (0)
-
 void Child::bar(void *T, int A, int B, int C) {
-  CHECK(A == 1);
-  CHECK(B == 2);
-  CHECK(C == 3);
-  CHECK(T == this);
+  CHECK_EQ(1, A);
+  CHECK_EQ(2, B);
+  CHECK_EQ(3, C);
+  CHECK_EQ(T, this);
 }
 
 #else

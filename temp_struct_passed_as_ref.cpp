@@ -11,8 +11,8 @@ struct S {
   S::S() : a(1), b(2) {}
 #else
   void foo(const struct S &s) {
-    CHECK(s.a == 1);
-    CHECK(s.b == 2);
+    CHECK_EQ(1, s.a);
+    CHECK_EQ(2, s.b);
   }
 
   int main() {

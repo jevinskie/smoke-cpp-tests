@@ -42,9 +42,9 @@ void run();
 int main() {
   run();
 
-  CHECK(dtor_calls == 1);
-  CHECK(a_calls == 0);
-  CHECK(b_calls == 1);
-  CHECK(c_calls == 0);
+  CHECK_EQ(1, dtor_calls);
+  CHECK_EQ(0, a_calls);
+  CHECK_EQ(1, b_calls);
+  CHECK_EQ(0, c_calls);
 }
 #endif
