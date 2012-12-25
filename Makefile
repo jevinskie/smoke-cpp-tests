@@ -31,7 +31,7 @@ run_%_test: %_test.exe
 %_1_test.exe: %_1_1.$(OBJ1) %_1_2.$(OBJ2)
 	$(LINK)$@ $^
 
-%_2_test.exe: %_2_1.$(OBJ2) %_2_2.$(OBJ1)
+%_2_test.exe: %_2_1.$(OBJ1) %_2_2.$(OBJ2)
 	$(LINK)$@ $^
 
 %_1_1.$(OBJ1): %.cpp
@@ -40,10 +40,10 @@ run_%_test: %_test.exe
 %_1_2.$(OBJ2): %.cpp
 	$(CC2)$@ $^ >dev_null
 
-%_2_1.$(OBJ2): %.cpp
+%_2_1.$(OBJ1): %.cpp
 	$(CC1)$@ $^ >dev_null
 
-%_2_2.$(OBJ1): %.cpp
+%_2_2.$(OBJ2): %.cpp
 	$(CC2)$@ -DCONFIG_1 $^ >dev_null
 
 
