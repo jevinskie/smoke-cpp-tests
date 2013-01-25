@@ -32,7 +32,9 @@ void operator delete (void* ptr) {
 }
 
 void call_foo(Base* obj) {
+  void *esp_before = get_esp();
   obj->foo();
+  CHECK_EQ(esp_before, get_esp());
 }
 
 void run();

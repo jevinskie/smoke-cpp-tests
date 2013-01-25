@@ -1,5 +1,9 @@
 #include "common.h"
 
+// http://llvm.org/PR13232
+
+extern int dtor_calls, a_calls, b_calls, c_calls;
+
 class Base {
  public:
   virtual ~Base();
@@ -10,7 +14,6 @@ class Base {
 };
 
 #ifdef CONFIG_1
-extern int dtor_calls, a_calls, b_calls, c_calls;
 
 void foo(Base* obj);
 

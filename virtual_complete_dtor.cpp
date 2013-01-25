@@ -1,5 +1,7 @@
 #include "common.h"
 
+// http://llvm.org/PR15058
+
 extern int base_dtor_calls, derived_dtor_calls;
 
 class Base {
@@ -33,7 +35,9 @@ void operator delete (void* ptr) {
 }
 
 void call_complete_dtor(Base* obj) {
+  void *esp_before = get_esp();
   obj->~Base();
+  CHECK_EQ(esp_before, get_esp());
 }
 
 void run();
