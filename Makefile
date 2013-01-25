@@ -24,7 +24,7 @@ clean:
 
 run_%_test: %_test.exe
 	### Running $< ###
-	@ ./$< || ! echo "### FAIL: $< ###############"
+	@ ./$< || (echo "### FAIL: $< ###############" && false)
 	#     OK: $<
 .PHONY: run_%_test
 
@@ -35,16 +35,16 @@ run_%_test: %_test.exe
 	$(LINK)$@ $^
 
 %_1_1.$(OBJ1): %.cpp
-	$(CC1)$@ -DCONFIG_1 $^ >dev_null
+	$(CC1)$@ -DCONFIG_1 $^ |& cat
 
 %_1_2.$(OBJ2): %.cpp
-	$(CC2)$@ $^ >dev_null
+	$(CC2)$@ $^ |& cat
 
 %_2_1.$(OBJ1): %.cpp
-	$(CC1)$@ $^ >dev_null
+	$(CC1)$@ $^ |& cat
 
 %_2_2.$(OBJ2): %.cpp
-	$(CC2)$@ -DCONFIG_1 $^ >dev_null
+	$(CC2)$@ -DCONFIG_1 $^ |& cat
 
 
 run_all_tests: $(RUN_TEST_TARGETS)
