@@ -21,4 +21,14 @@ extern "C" void exit(int code);
     } \
   } while (0)
 
+extern "C" void *_AddressOfReturnAddress();
+
+inline void* get_esp() {
+#ifdef __has_feature
+  return __builtin_frame_address(0);
+#else
+  return _AddressOfReturnAddress();
+#endif
+}
+
 #endif  // COMMON_H_
