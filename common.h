@@ -24,7 +24,7 @@ extern "C" void exit(int code);
 extern "C" void *_AddressOfReturnAddress();
 
 inline void* get_esp() {
-#ifdef __has_feature
+#if !defined(_MSC_VER) || defined(__has_feature)
   return __builtin_frame_address(0);
 #else
   return _AddressOfReturnAddress();
