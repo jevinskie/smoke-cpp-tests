@@ -7,7 +7,7 @@ extern "C" void exit(int code);
 #define CHECK(condition) \
   do { \
     if (!(condition)) { \
-      printf("Error: '" #condition "' is false!\n"); \
+      printf("Error: '" #condition "' is false at line %d!\n", __LINE__); \
       exit(__LINE__); \
     } \
   } while (0)
@@ -15,8 +15,9 @@ extern "C" void exit(int code);
 #define CHECK_EQ(expected,actual) \
   do { \
     if ((expected) != (actual)) { \
-      printf("Error: " #actual " != " #expected " (0x%p vs 0x%p)\n", \
-             (void*)(actual), (void*)(expected)); \
+      printf("Error: " #actual " != " #expected \
+             " (0x%p != 0x%p) at line %d.\n", \
+             (void*)(actual), (void*)(expected), __LINE__); \
       exit(__LINE__); \
     } \
   } while (0)
