@@ -1,4 +1,5 @@
 // http://llvm.org/PR13676
+#include "common.h"
 
 struct S {
   int a, b, c;
@@ -21,11 +22,8 @@ S C::foo() {
 int main() {
   C c;
   S s = c.foo();
-  if (s.a != 1)
-    return 1;
-  if (s.b != 2)
-    return 2;
-  if (s.c != 3)
-    return 3;
+  CHECK_EQ(1, s.a);
+  CHECK_EQ(2, s.b);
+  CHECK_EQ(3, s.c);
 }
 #endif

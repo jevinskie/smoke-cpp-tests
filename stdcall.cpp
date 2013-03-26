@@ -1,3 +1,5 @@
+#include "common.h"
+
 extern int cnt;
 void __stdcall foo();
 extern "C" void __stdcall bar();
@@ -16,11 +18,9 @@ int cnt = 10;
 
 int main() {
   foo();
-  if (cnt != 42)
-    return 1;
+  CHECK_EQ(42, cnt);
 
   bar();
-  if (cnt != 13)
-    return 2;
+  CHECK_EQ(13, cnt);
 }
 #endif

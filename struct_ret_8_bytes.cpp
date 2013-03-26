@@ -1,4 +1,5 @@
 // http://llvm.org/PR13676
+#include "common.h"
 
 struct S {
   int a, b;
@@ -16,9 +17,7 @@ S foo() {
 #else
 int main() {
   S s = foo();
-  if (s.a != 1)
-    return 1;
-  if (s.b != 2)
-    return 2;
+  CHECK_EQ(1, s.a);
+  CHECK_EQ(2, s.b);
 }
 #endif
