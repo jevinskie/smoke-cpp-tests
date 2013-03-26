@@ -2,11 +2,11 @@
 
 class C {
  public:
-  int __cdecl foo(int a, int b, int c);
+  int CDECL foo(int a, int b, int c);
 };
 
 #ifdef CONFIG_1
-int __cdecl C::foo(int a, int b, int c) {
+int CDECL C::foo(int a, int b, int c) {
   CHECK_EQ(1, a);
   CHECK_EQ(2, b);
   CHECK_EQ(3, c);

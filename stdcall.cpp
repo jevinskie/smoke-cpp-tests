@@ -1,15 +1,15 @@
 #include "common.h"
 
 extern int cnt;
-void __stdcall foo();
-extern "C" void __stdcall bar();
+void STDCALL foo();
+extern "C" void STDCALL bar();
 
 #ifdef CONFIG_1
-void __stdcall foo() {
+void STDCALL foo() {
   cnt = 42;
 }
 
-void __stdcall bar() {
+void STDCALL bar() {
   cnt = 13;
 }
 

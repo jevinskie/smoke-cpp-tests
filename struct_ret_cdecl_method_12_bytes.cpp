@@ -7,7 +7,7 @@ struct S {
 
 class C {
  public:
-  S __cdecl foo();
+  S CDECL foo();
 };
 
 #ifdef CONFIG_1

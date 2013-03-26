@@ -22,6 +22,14 @@ extern "C" void exit(int code);
     } \
   } while (0)
 
+#ifdef _MSC_VER
+# define CDECL __cdecl
+# define STDCALL __stdcall
+#else
+# define CDECL    // Already cdecl by default.
+# define STDCALL  // Not available
+#endif
+
 extern "C" void *_AddressOfReturnAddress();
 
 inline void* get_esp() {
