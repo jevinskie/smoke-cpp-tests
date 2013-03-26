@@ -1,9 +1,20 @@
-CC1=cl -nologo -c -Fo
+ifeq ($(PLATFORM), )
+	PLATFORM=$(shell uname -s | sed -e "s/CYGWIN.*/Windows/" | sed -e "s/Darwin/Mac/")
+endif
+
+ifeq ($(PLATFORM), Windows)
+	CC1=cl -nologo -c -Fo
+	OBJ1=obj
+	LINK=link $(LDFLAGS) -nologo libcmt.lib libcpmt.lib -debug -incremental:no -out:
+else
+	CC1=g++ -c -o
+	OBJ1=o
+	LINK=g++ -o
+endif
+
 CC2=$(CC1)
-OBJ1=obj
 OBJ2=$(OBJ1)
 LDFLAGS=
-LINK=link $(LDFLAGS) -nologo libcmt.lib libcpmt.lib -debug -incremental:no -out:
 
 ALL_TEST_TARGETS=$(patsubst %.cpp,run_%_1_test,$(wildcard *.cpp)) \
                  $(patsubst %.cpp,run_%_2_test,$(wildcard *.cpp))
