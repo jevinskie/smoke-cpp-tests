@@ -2,22 +2,26 @@
 #include "common.h"
 
 struct S {
-  S(int a, int b) : a(a), b(b) {}
   int a, b;
+  S(char *) {}
 };
 
-S foo();
+class C {
+ public:
+  S foo();
+};
 
 #ifdef CONFIG_1
-S foo() {
-  S ret(3, 4);
+S C::foo() {
+  S ret(0);
   ret.a = 1;
   ret.b = 2;
   return ret;
 }
 #else
 int main() {
-  S s = foo();
+  C c;
+  S s = c.foo();
   CHECK_EQ(1, s.a);
   CHECK_EQ(2, s.b);
 }

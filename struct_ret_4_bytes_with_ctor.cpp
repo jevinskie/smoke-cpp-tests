@@ -2,8 +2,8 @@
 #include "common.h"
 
 struct S {
-  S(int a, int b) : a(a), b(b) {}
-  int a, b;
+  S(int x, int y) {}
+  int a;
 };
 
 S foo();
@@ -12,13 +12,11 @@ S foo();
 S foo() {
   S ret(3, 4);
   ret.a = 1;
-  ret.b = 2;
   return ret;
 }
 #else
 int main() {
   S s = foo();
   CHECK_EQ(1, s.a);
-  CHECK_EQ(2, s.b);
 }
 #endif

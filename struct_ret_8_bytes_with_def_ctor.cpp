@@ -2,7 +2,7 @@
 #include "common.h"
 
 struct S {
-  S(int a, int b) : a(a), b(b) {}
+  S() {}
   int a, b;
 };
 
@@ -10,7 +10,7 @@ S foo();
 
 #ifdef CONFIG_1
 S foo() {
-  S ret(3, 4);
+  S ret;
   ret.a = 1;
   ret.b = 2;
   return ret;
