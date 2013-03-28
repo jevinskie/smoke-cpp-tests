@@ -8,6 +8,7 @@ struct Unspecified;
 #ifdef CONFIG_1
 // header unrelated.h:
 // Lock in sizeof(void (Unspecified::*)()).
+// FIXME: Can we declare this without a definition of Unspecified?
 void (Unspecified::*g_memptr)();
 #endif
 
