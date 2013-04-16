@@ -1,7 +1,7 @@
 #include "common.h"
 
 struct S {
-  S();
+  S() { x = 13; }
   char x;
 };
 

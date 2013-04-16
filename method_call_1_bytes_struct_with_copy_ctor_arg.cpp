@@ -1,7 +1,7 @@
 #include "common.h"
 
 struct S {
-  S();
+  S() { x = 77; }
   S(const struct S &other) { x = other.x; }
   char x;
 };
