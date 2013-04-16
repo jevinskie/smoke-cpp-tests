@@ -34,6 +34,18 @@ inline bool check_eq_impl(void *a, const char *a_str,
   return true;
 }
 
+template<typename T>
+bool check_eq_impl(T a, const char *a_str,
+                   T b, const char *b_str,
+                   unsigned int line_no) {
+  if (a != b) {
+    printf("Error: %s != %s (0x%p != 0x%p) at line %d.\n",
+           a_str, b_str, reinterpret_cast<void*>(a), reinterpret_cast<void*>(b), line_no);
+    return false;
+  }
+  return true;
+}
+
 #define CHECK_EQ(expected,actual) \
   do { \
     if (!check_eq_impl((actual), #actual, (expected), #expected, __LINE__)) \
