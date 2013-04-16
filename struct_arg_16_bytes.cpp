@@ -2,7 +2,7 @@
 #include "common.h"
 
 struct S {
-  int a, b, c;
+  int a, b, c, d;
 };
 
 void foo(S s);
@@ -12,6 +12,7 @@ void foo(S s) {
   CHECK_EQ(1, s.a);
   CHECK_EQ(2, s.b);
   CHECK_EQ(3, s.c);
+  CHECK_EQ(4, s.d);
 }
 #else
 int main() {
@@ -19,6 +20,7 @@ int main() {
   s.a = 1;
   s.b = 2;
   s.c = 3;
+  s.d = 4;
   void *esp_before = get_esp();
   foo(s);
   CHECK_EQ(esp_before, get_esp());

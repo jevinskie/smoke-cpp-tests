@@ -23,6 +23,28 @@ inline bool check_eq_impl(int a, const char *a_str,
   return true;
 }
 
+inline bool check_eq_impl(float a, const char *a_str,
+                          float b, const char *b_str,
+                          unsigned int line_no) {
+  if (a != b) {
+    printf("Error: %s != %s (%f != %f) at line %d.\n",
+           a_str, b_str, a, b, line_no);
+    return false;
+  }
+  return true;
+}
+
+inline bool check_eq_impl(double a, const char *a_str,
+                          double b, const char *b_str,
+                          unsigned int line_no) {
+  if (a != b) {
+    printf("Error: %s != %s (%lf != %lf) at line %d.\n",
+           a_str, b_str, a, b, line_no);
+    return false;
+  }
+  return true;
+}
+
 inline bool check_eq_impl(void *a, const char *a_str,
                           void *b, const char *b_str,
                           unsigned int line_no) {

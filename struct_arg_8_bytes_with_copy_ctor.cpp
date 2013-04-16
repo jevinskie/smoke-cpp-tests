@@ -2,7 +2,12 @@
 #include "common.h"
 
 struct S {
-  int a, b, c;
+  S() {}
+  S(struct S &other) {
+    a = other.a;
+    b = other.b;
+  }
+  int a, b;
 };
 
 void foo(S s);
@@ -11,16 +16,12 @@ void foo(S s);
 void foo(S s) {
   CHECK_EQ(1, s.a);
   CHECK_EQ(2, s.b);
-  CHECK_EQ(3, s.c);
 }
 #else
 int main() {
   S s;
   s.a = 1;
   s.b = 2;
-  s.c = 3;
-  void *esp_before = get_esp();
   foo(s);
-  CHECK_EQ(esp_before, get_esp());
 }
 #endif

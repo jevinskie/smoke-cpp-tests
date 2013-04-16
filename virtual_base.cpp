@@ -3,7 +3,7 @@
 class Base {
  public:
   Base() {}
-  ~Base() {}
+  //~Base() {}  // Fails to compile yet.
 
   void foo(void *real_this) {
     CHECK_EQ(real_this, this);

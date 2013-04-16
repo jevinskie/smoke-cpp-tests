@@ -17,6 +17,8 @@ int main() {
   S s;
   s.a = 1;
   s.b = 2;
+  void *esp_before = get_esp();
   foo(s);
+  CHECK_EQ(esp_before, get_esp());
 }
 #endif

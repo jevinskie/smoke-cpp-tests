@@ -2,23 +2,21 @@
 #include "common.h"
 
 struct S {
-  int a, b, c;
+  void *a;
 };
 
-void foo(S s);
+void FASTCALL foo(S s);
+
+#define VALUE ((void*)4213)
 
 #ifdef CONFIG_1
-void foo(S s) {
-  CHECK_EQ(1, s.a);
-  CHECK_EQ(2, s.b);
-  CHECK_EQ(3, s.c);
+void FASTCALL foo(S s) {
+  CHECK_EQ(VALUE, s.a);
 }
 #else
 int main() {
   S s;
-  s.a = 1;
-  s.b = 2;
-  s.c = 3;
+  s.a = VALUE;
   void *esp_before = get_esp();
   foo(s);
   CHECK_EQ(esp_before, get_esp());
