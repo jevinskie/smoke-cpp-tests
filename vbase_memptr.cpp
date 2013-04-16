@@ -30,9 +30,13 @@ void foo(C *bp, int B::*memptr) {
 #else
 int main() {
   D o;
+#ifdef _MSC_VER
+  // Taking a pointer to a member of a virtual base is an MSVC extension that
+  // didn't make it into the standard: http://llvm.org/PR15713
   o.a = o.b = o.c = o.d = 0;
   foo(&o, &A::a);
   CHECK_EQ(10, o.a);
+#endif
   o.a = o.b = o.c = o.d = 0;
   foo(&o, &B::b);
   CHECK_EQ(10, o.b);

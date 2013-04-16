@@ -36,9 +36,12 @@ void B::bar() { b = 10; }
 
 int main() {
   D c;
+#ifdef _MSC_VER
+  // http://llvm.org/PR15713
   c.a = c.b = 0;
   foo(&c, &B::foo);
   CHECK_EQ(5, c.a);
+#endif
   c.a = c.b = 0;
   foo(&c, &B::bar);
   CHECK_EQ(10, c.b);

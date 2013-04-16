@@ -25,8 +25,12 @@ int main() {
   b.a = b.b = 0;
   foo(&b, &B::b);
   CHECK_EQ(10, b.b);
+# ifdef _MSC_VER
+  // Taking a pointer to a member of a virtual base is an MSVC extension that
+  // didn't make it into the standard: http://llvm.org/PR15713
   b.a = b.b = 0;
   foo(&b, &B::a);
   CHECK_EQ(10, b.a);
+# endif
 }
 #endif

@@ -1,5 +1,13 @@
 #include "common.h"
 
+#ifndef _MSC_VER
+// These keywords are MSVC only.  They are only needed to implement pointers to
+// members of virtual bases.
+# define __single_inheritance
+# define __multiple_inheritance
+# define __virtual_inheritance
+#endif
+
 struct __single_inheritance Single;
 struct __multiple_inheritance Multiple;
 struct __virtual_inheritance Virtual;
