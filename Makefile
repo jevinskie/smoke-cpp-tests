@@ -3,7 +3,7 @@ ifeq ($(PLATFORM), )
 endif
 
 ifeq ($(PLATFORM), Windows)
-	CC1=cl -nologo -c -Fo
+	CC1=cl -nologo -GR- -O2 -c -Fo
 	OBJ1=obj
 	LINK=link $(LDFLAGS) -nologo libcmt.lib libcpmt.lib -debug -incremental:no -out:
 else
@@ -15,6 +15,7 @@ endif
 CC2=$(CC1)
 OBJ2=$(OBJ1)
 LDFLAGS=
+RM_F=rm -f
 
 ALL_TEST_TARGETS=$(patsubst %.cpp,run_%_1_test,$(wildcard *.cpp)) \
                  $(patsubst %.cpp,run_%_2_test,$(wildcard *.cpp))
@@ -30,7 +31,7 @@ all: run_all_tests
 .PHONY: all
 
 clean:
-	rm -f *.pdb *.ilk *.exe *.obj *.obj-* *.o *.o-* dev_null
+	$(RM_F) *.pdb *.ilk *.exe *.obj *.obj-* *.o *.o-* dev_null
 .PHONY: clean
 
 run_%_test: %_test.exe
@@ -45,17 +46,20 @@ run_%_test: %_test.exe
 %_2_test.exe: %_2_1.$(OBJ1) %_2_2.$(OBJ2)
 	$(LINK)$@ $^
 
+CAT= |& cat
+CAT=
+
 %_1_1.$(OBJ1): %.cpp
-	$(CC1)$@ -DCONFIG_1 $^ |& cat
+	$(CC1)$@ -DCONFIG_1 $^ $(CAT)
 
 %_1_2.$(OBJ2): %.cpp
-	$(CC2)$@ $^ |& cat
+	$(CC2)$@ $^ $(CAT)
 
 %_2_1.$(OBJ1): %.cpp
-	$(CC1)$@ $^ |& cat
+	$(CC1)$@ $^ $(CAT)
 
 %_2_2.$(OBJ2): %.cpp
-	$(CC2)$@ -DCONFIG_1 $^ |& cat
+	$(CC2)$@ -DCONFIG_1 $^ $(CAT)
 
 
 run_all_tests: $(RUN_TEST_TARGETS)
