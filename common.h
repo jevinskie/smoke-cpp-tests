@@ -12,22 +12,42 @@ extern "C" void exit(int code);
     } \
   } while (0)
 
+inline bool check_eq_impl(int a, const char *a_str,
+                          int b, const char *b_str,
+                          unsigned int line_no) {
+  if (a != b) {
+    printf("Error: %s != %s (%d != %d) at line %d.\n",
+           a_str, b_str, a, b, line_no);
+    return false;
+  }
+  return true;
+}
+
+inline bool check_eq_impl(void *a, const char *a_str,
+                          void *b, const char *b_str,
+                          unsigned int line_no) {
+  if (a != b) {
+    printf("Error: %s != %s (0x%p != 0x%p) at line %d.\n",
+           a_str, b_str, a, b, line_no);
+    return false;
+  }
+  return true;
+}
+
 #define CHECK_EQ(expected,actual) \
   do { \
-    if ((expected) != (actual)) { \
-      printf("Error: " #actual " != " #expected \
-             " (0x%p != 0x%p) at line %d.\n", \
-             (void*)(actual), (void*)(expected), __LINE__); \
-      exit(__LINE__); \
-    } \
+    if (!check_eq_impl((actual), #actual, (expected), #expected, __LINE__)) \
+      exit(1 + (__LINE__ % 100)); \
   } while (0)
 
 #ifdef _MSC_VER
 # define CDECL __cdecl
 # define STDCALL __stdcall
+# define FASTCALL __fastcall
 #else
 # define CDECL    // Already cdecl by default.
-# define STDCALL  // Not available
+# define STDCALL  __attribute__((stdcall))
+# define FASTCALL __attribute__((fastcall))
 #endif
 
 extern "C" void *_AddressOfReturnAddress();
