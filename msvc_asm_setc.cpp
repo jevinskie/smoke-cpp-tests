@@ -4,6 +4,7 @@ int foo(int a, int b);
 
 #ifdef CONFIG_1
 int foo(int a, int b) {
+# ifdef _MSC_VER
   __asm {
     mov eax, a
     mov ebx, b
@@ -14,6 +15,11 @@ int foo(int a, int b) {
     mov a, eax
   };
   return a;
+#else
+  // For gcc.
+  unsigned ua = a, ub = b;
+  return ua + ub < ua;
+#endif
 }
 #else
 
