@@ -3,10 +3,12 @@
 extern int dtor_calls;
 
 struct Class {
+  Class();
   ~Class();
 };
 
 #ifdef CONFIG_1
+Class::Class() { }
 Class::~Class() {
   dtor_calls++;
 }

@@ -5,7 +5,10 @@ extern "C" int printf(const char *fmt, ...);
 // header unspecified_fwd.h:
 struct Unspecified;
 
-#ifdef CONFIG_1
+// Uncomment to cause ABI bug.
+//#define BUG
+
+#if defined(CONFIG_1) && defined(BUG)
 // header unrelated.h:
 // Lock in sizeof(void (Unspecified::*)()).
 // FIXME: Can we declare this without a definition of Unspecified?

@@ -3,13 +3,13 @@
 // TODO: need vbase support, but memptr representation in MS ABI is:
 // {offset in class, offset in vbtable}
 
-struct A {
-  int a;
-};
+struct A { int a; };
+struct B : virtual A { int b; };
+//static int B::*memptr_b = &B::a;  // error
+//static int B::*memptr_a = &A::a;  // error
 
-struct B : virtual A {
-  int b;
-};
+struct C : virtual A { int c; };
+struct D : B, C { int d; };
 
 void foo(B *bp, int B::*memptr);
 
@@ -31,6 +31,14 @@ int main() {
   b.a = b.b = 0;
   foo(&b, &B::a);
   CHECK_EQ(10, b.a);
+
+  D d;
+  d.a = d.b = d.c = d.d = 0;
+  foo(&d, static_cast<int B::*>(&D::a));
+  CHECK_EQ(10, d.a);
+  d.a = d.b = d.c = d.d = 0;
+  foo(&d, &D::b);
+  CHECK_EQ(10, d.b);
 # endif
 }
 #endif
