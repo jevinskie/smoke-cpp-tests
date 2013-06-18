@@ -1,6 +1,6 @@
 #include "common.h"
 
-__declspec(selectany) int x = 5;
+SELECTANY int x = 5;
 
 int *foo();
 #ifdef CONFIG_1

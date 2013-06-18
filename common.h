@@ -95,10 +95,12 @@ inline bool check_ne_impl(void *a, const char *a_str,
 # define CDECL __cdecl
 # define STDCALL __stdcall
 # define FASTCALL __fastcall
+# define SELECTANY __declspec(selectany)
 #else
 # define CDECL    // Already cdecl by default.
 # define STDCALL  __attribute__((stdcall))
 # define FASTCALL __attribute__((fastcall))
+# define SELECTANY __attribute__((weak))
 #endif
 
 extern "C" void *_AddressOfReturnAddress();
