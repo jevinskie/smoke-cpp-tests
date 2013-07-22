@@ -33,10 +33,6 @@ void bar(D* obj, void *b_ptr) {
   obj->b(b_ptr);
 }
 
-void zoo(B* obj) {
-  obj->b(0);
-}
-
 #else
 
 void A::a(void *ptr) {
