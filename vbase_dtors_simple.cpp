@@ -5,12 +5,15 @@ struct Base {
 };
 
 struct Child : virtual Base {
+  Child();
   ~Child();
 };
 
 extern int base_dtor_calls, child_dtor_calls;
 
 #ifdef CONFIG_1
+Child::Child() {}
+
 Child::~Child() {
   CHECK_EQ(0, base_dtor_calls);
   CHECK_EQ(0, child_dtor_calls);
