@@ -31,7 +31,7 @@ all: run_all_tests
 .PHONY: all
 
 clean:
-	$(RM_F) *.pdb *.ilk *.exe *.obj *.obj-* *.o *.o-* dev_null
+	$(RM_F) *.pdb *.lib *.exp *.ilk *.exe *.obj *.obj-* *.o *.o-* dev_null
 .PHONY: clean
 
 run_%_test: %_test.exe
