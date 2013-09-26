@@ -30,6 +30,6 @@ int main() {
   Foo *f2 = getFoo();
   CHECK_EQ(f1, f2);
   CHECK_EQ(Foo::ctor_calls, 1);
-  return 1;
+  return 0;
 }
 #endif
