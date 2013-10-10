@@ -15,6 +15,7 @@ struct B : virtual A {
   // members of B.
   virtual void c();
   virtual void d();
+  void call_c();
   int xxx;
 };
 
@@ -35,7 +36,7 @@ A::A() {
 B::B() {
   CHECK_EQ(1, stage);
   stage = 2;
-  c();
+  call_c();
   xxx = 42;
 }
 
@@ -65,6 +66,10 @@ C::~C() {
   CHECK_EQ(3, stage);
   stage = 4;
   d();
+}
+
+void B::call_c() {
+  c();
 }
 
 void A::c() { CHECK_EQ(1, stage); }
