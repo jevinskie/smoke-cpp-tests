@@ -1,8 +1,16 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
+#ifdef __SIZE_TYPE__
+# define memcpy_size_t __SIZE_TYPE__
+#else
+# define memcpy_size_t size_t
+#endif
+
 extern "C" int printf(const char *fmt, ...);
 extern "C" void exit(int code);
+extern "C" void *memcpy(void *__restrict dst, const void *__restrict src,
+                        memcpy_size_t sz);
 
 #define CHECK(condition) \
   do { \
