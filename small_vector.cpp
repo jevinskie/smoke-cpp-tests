@@ -1,4 +1,5 @@
 // Check that we don't memcpy SmallVec when passing it by value.
+// http://llvm.org/PR5064
 #include "common.h"
 
 struct SmallVec {
