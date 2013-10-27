@@ -12,7 +12,9 @@ struct Middle: Base1, Base2 {
   int c;
 };
 
-struct Child : virtual Middle {
+struct Empty {};
+
+struct Child : virtual Empty, virtual Middle {
   virtual void foo() {}  // Move vbptr from the beginning of the object.
   int d;
 };
