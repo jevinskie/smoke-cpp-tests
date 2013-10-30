@@ -31,8 +31,6 @@ C::~C() { c_calls++; }
 D::~D() { d_calls++; }
 
 void destroy(D *d) {
-  // segfaults, clang generates bad code, assumes vftable is at offset zero or
-  // something.
   delete d;
 }
 #else
