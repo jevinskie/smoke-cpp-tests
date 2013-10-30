@@ -35,8 +35,8 @@ struct C : virtual B {
 
 struct Z { int z; };
 
-struct D : virtual Y, virtual Z, C {
-};
+// Inject a Z vbase between Y and B.
+struct D : virtual Y, virtual Z, C { };
 
 #ifdef CONFIG_1
 A::A() {
@@ -97,7 +97,6 @@ void B::c(void *p) {
   CHECK_EQ(2, stage_a);
   CHECK_EQ(1, stage_b);
 }
-
 
 void B::d(void *p) {
   CHECK_EQ(this, p);
