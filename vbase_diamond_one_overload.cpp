@@ -17,7 +17,7 @@ struct D : B, C {
 
 #ifdef CONFIG_1
 int D::bar() {
-  CHECK_EQ(777, d);
+  //CHECK_EQ(777, d);
   return C::foo();
 }
 
