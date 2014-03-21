@@ -35,5 +35,6 @@ int main() {
   obj->b = 2;
   obj->c = 3;
   delete obj;
+  CHECK_EQ(1, c_dtor_calls);
 }
 #endif
