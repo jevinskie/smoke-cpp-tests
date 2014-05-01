@@ -4,7 +4,7 @@ int foo(int a, int b);
 
 #ifdef CONFIG_1
 int foo(int a, int b) {
-# ifdef _MSC_VER
+# if defined(_MSC_VER) && defined(_M_IX86)
   __asm {
     mov eax, a
     mov ebx, b
